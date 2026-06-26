@@ -1,0 +1,125 @@
+@import "tailwindcss";
+
+@theme {
+  --color-hospital-teal: #008F7A;
+  --color-hospital-blue: #0096D6;
+  --color-hospital-darkGrey: #334155;
+  --color-hospital-headingGrey: #0f172a;
+  --color-hospital-steel: #f8f7f4;
+  
+  /* Extended color palette for better consistency */
+  --color-hospital-light: #fafaf9;
+  --color-hospital-accent: #0096D6;
+  --color-hospital-muted: #64748b;
+}
+
+:root {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  color-scheme: light;
+  background: var(--color-hospital-steel);
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  line-height: 1.6;
+}
+
+#root {
+  width: 100%;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ─── TYPOGRAPHY IMPROVEMENTS ─── */
+h1, h2, h3, h4 {
+  font-weight: 900;
+  letter-spacing: -0.025em;
+  line-height: 1.1;
+}
+
+h1 {
+  font-size: clamp(2.5rem, 8vw, 4.5rem);
+}
+
+.text-display {
+  font-size: clamp(3rem, 10vw, 5.5rem);
+}
+
+/* ─── INFINITE CAROUSEL ─── */
+@keyframes infiniteScroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(calc(-50% - 2rem));
+  }
+}
+
+.animate-infinite-scroll {
+  animation: infiniteScroll 40s linear infinite;
+  display: flex;
+  gap: 3rem;
+  padding-bottom: 1rem;
+}
+
+/* Better hover pause */
+.animate-infinite-scroll:hover {
+  animation-play-state: paused;
+}
+
+/* ─── UTILITY CLASSES FOR PREMIUM FEEL ─── */
+.glass {
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+.card-hover {
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card-hover:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 
+              0 8px 10px -6px rgb(0 0 0 / 0.1);
+}
+
+/* Smooth focus states */
+input:focus, textarea:focus {
+  outline: none;
+  border-color: var(--color-hospital-teal);
+  box-shadow: 0 0 0 3px rgba(0, 143, 122, 0.15);
+}
+
+/* Button styles */
+.btn-primary {
+  background-color: var(--color-hospital-teal);
+  color: white;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+  background-color: #006d5c;
+  transform: translateY(-2px);
+}
+
+/* Section dividers */
+.section-header {
+  position: relative;
+}
+
+.section-header::after {
+  content: '';
+  position: absolute;
+  width: 60px;
+  height: 3px;
+  background: linear-gradient(to right, var(--color-hospital-teal), var(--color-hospital-blue));
+  bottom: -8px;
+  left: 0;
+} 
