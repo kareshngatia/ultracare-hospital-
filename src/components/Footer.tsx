@@ -1,65 +1,77 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 export default function Footer() {
   return (
-    <footer className="bg-hospital-headingGrey text-white/80 py-20">
+    <footer className="bg-neutral-950 text-white/80 py-20 border-t border-white/5">
       <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-12 gap-12">
         
         {/* Brand & About */}
-        <div className="md:col-span-5">
-          <div className="flex items-center gap-3 mb-6">
+        <div className="md:col-span-4">
+          <div className="flex items-center gap-3 mb-6 shrink-0">
             <img 
               src="/logo.png" 
-              alt="Ultracare Specialist Hospital" 
+              alt="PEJMED Ultracare Specialist Hospital Limited" 
               className="h-12 w-auto brightness-0 invert" 
             />
-           
           </div>
           
-          <p className="text-white/70 leading-relaxed max-w-md">
-            Dedicated to providing comprehensive specialized healthcare services with 
-            compassion, excellence, and patient-centered care since May 2024.
+          <p className="text-neutral-400 text-sm leading-relaxed max-w-sm">
+            PEJMED Ultracare Specialist Hospital Limited is a privately owned Level 4 healthcare facility established in 2023, dedicated to delivering specialized, compassionate, and patient-centered medical care.
           </p>
 
-          <div className="mt-8 text-sm text-white/60">
-            Nyahururu, Laikipia County, Kenya
+          <div className="mt-8 font-heading text-xs font-semibold tracking-wider text-neutral-500 uppercase">
+            📍 Nyahururu, Laikipia County, Kenya
           </div>
         </div>
 
-        {/* Quick Links */}
-        <div className="md:col-span-3">
-          <h4 className="text-white font-semibold text-lg mb-6">Quick Links</h4>
-          <ul className="space-y-3 text-sm">
-            <li><a href="#home" className="hover:text-white transition-colors">Home</a></li>
-            <li><a href="#about" className="hover:text-white transition-colors">About Us</a></li>
-            <li><a href="#services" className="hover:text-white transition-colors">Our Services</a></li>
-            <li><a href="#insurance" className="hover:text-white transition-colors">Insurance</a></li>
-            <li><a href="#appointment" className="hover:text-white transition-colors">Book Appointment</a></li>
+        {/* Quick Nav Links */}
+        <div className="md:col-span-2">
+          <h4 className="text-white font-heading font-bold text-sm uppercase tracking-wider mb-6">Explore</h4>
+          <ul className="space-y-3.5 text-sm font-medium">
+            <li><Link to="/" className="text-neutral-400 hover:text-hospital-teal transition-colors">Home</Link></li>
+            <li><Link to="/about" className="text-neutral-400 hover:text-hospital-teal transition-colors">Our Story</Link></li>
+            <li><Link to="/services" className="text-neutral-400 hover:text-hospital-teal transition-colors">Medical Services</Link></li>
+            <li><Link to="/insurance" className="text-neutral-400 hover:text-hospital-teal transition-colors">Insurance Covers</Link></li>
+            <li><Link to="/careers" className="text-neutral-400 hover:text-hospital-teal transition-colors">Careers</Link></li>
+            <li><Link to="/contact" className="text-neutral-400 hover:text-hospital-teal transition-colors">Book Appointment</Link></li>
           </ul>
         </div>
 
-        {/* Contact & Values */}
-        <div className="md:col-span-4">
-          <h4 className="text-white font-semibold text-lg mb-6">Get In Touch</h4>
+        {/* Specialist Clinics Column */}
+        <div className="md:col-span-3">
+          <h4 className="text-white font-heading font-bold text-sm uppercase tracking-wider mb-6">Specialist Clinics</h4>
+          <ul className="space-y-2.5 text-xs text-neutral-400 font-medium">
+            <li>• Surgical & Orthopedics</li>
+            <li>• OB/GYN & Maternity</li>
+            <li>• Pediatrics & Neonatal (NBU)</li>
+            <li>• ENT & Internal Medicine</li>
+            <li>• Advanced Video Endoscopy</li>
+            <li>• 24/7 Laboratory & Digital X-Ray</li>
+          </ul>
+        </div>
+
+        {/* Contact & Emergency */}
+        <div className="md:col-span-3">
+          <h4 className="text-white font-heading font-bold text-sm uppercase tracking-wider mb-6">Get In Touch</h4>
           
           <div className="space-y-6">
             <div>
-              <p className="text-xs uppercase tracking-widest text-white/60 mb-1">EMERGENCY LINE</p>
+              <p className="font-heading text-[10px] font-black uppercase tracking-widest text-red-500 mb-1">EMERGENCY LINE 24/7</p>
               <a 
                 href="tel:0702761696" 
-                className="text-3xl font-bold text-white hover:text-hospital-teal transition-colors"
+                className="text-2xl font-heading font-black text-white hover:text-hospital-teal transition-colors tracking-tight"
               >
                 0702 761 696
               </a>
             </div>
 
             <div>
-              <h5 className="text-white/90 font-medium mb-3">Core Values</h5>
-              <ul className="text-sm space-y-1.5 text-white/70">
-                <li>• Patient-Centered Care</li>
-                <li>• Clinical Excellence</li>
-                <li>• Compassion & Integrity</li>
-                <li>• Innovation in Healthcare</li>
+              <h5 className="text-white/90 font-heading font-bold text-xs uppercase tracking-wider mb-2">Our Standards</h5>
+              <ul className="text-xs space-y-1.5 text-neutral-400 font-medium">
+                <li>✔ Registered Level 4 Facility</li>
+                <li>✔ Multidisciplinary Specialists</li>
+                <li>✔ Policy of Utmost Good Faith</li>
               </ul>
             </div>
           </div>
@@ -67,8 +79,8 @@ export default function Footer() {
       </div>
 
       {/* Bottom Bar */}
-      <div className="mt-16 pt-8 border-t border-white/10 text-center text-xs text-white/50">
-        © {new Date().getFullYear()} Ultracare Specialist Hospital. All Rights Reserved.
+      <div className="mt-16 pt-8 border-t border-white/5 text-center text-xs text-neutral-600 font-medium">
+        © {new Date().getFullYear()} PEJMED Ultracare Specialist Hospital Limited. All Rights Reserved.
       </div>
     </footer>
   );

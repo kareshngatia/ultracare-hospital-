@@ -1,7 +1,13 @@
-export default {
+/** @type {import('tailwindcss').Config} */
+module.exports = {
   content: ["./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
+      fontFamily: {
+        sans: ['Inter', 'sans-serif'],
+        heading: ['Montserrat', 'sans-serif'],
+        script: ['Caveat', 'cursive'],
+      },
       colors: {
         hospital: {
           teal: '#008F7A',
@@ -12,5 +18,6 @@ export default {
         }
       }
     }
-  }
+  },
+  plugins: [],
 }
