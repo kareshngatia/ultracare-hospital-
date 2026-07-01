@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import hospitalLogo from '../assets/logo.png';
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -7,14 +8,15 @@ export default function Navbar() {
   return (
     <nav className="sticky top-0 z-50 bg-white/95 backdrop-blur-lg border-b border-neutral-200 shadow-xs">
       <div className="max-w-7xl mx-auto px-6">
-        <div className="flex justify-between items-center h-20">
+        {/* Expanded Navbar layout height from h-20 to h-28 to easily fit the larger image sizing */}
+        <div className="flex justify-between items-center h-28">
           
-          {/* Logo */}
-          <Link to="/" className="flex items-center gap-3 shrink-0">
+          {/* Logo Container */}
+          <Link to="/" className="flex items-center gap-3 shrink-0 py-2">
             <img 
-              src="/logo.png" 
+              src={hospitalLogo}
               alt="PEJMED Ultracare Specialist Hospital Limited" 
-              className="h-10 w-auto" 
+              className="h-24 w-auto object-contain transition-all" // Increased height from h-10 to h-24 (~3x size)
             />
           </Link>
 

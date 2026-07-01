@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import hospitalLogo from '../assets/logo.png';
 
 export default function Footer() {
   return (
@@ -10,9 +11,9 @@ export default function Footer() {
         <div className="md:col-span-4">
           <div className="flex items-center gap-3 mb-6 shrink-0">
             <img 
-              src="/logo.png" 
+              src={hospitalLogo}
               alt="PEJMED Ultracare Specialist Hospital Limited" 
-              className="h-12 w-auto brightness-0 invert" 
+              className="h-24 w-auto object-contain" // Scaled up to h-24 to match the navbar's prominence
             />
           </div>
           

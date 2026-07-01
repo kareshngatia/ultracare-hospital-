@@ -1,6 +1,20 @@
 import React, { useState, FormEvent } from 'react';
 import { Link } from 'react-router-dom';
 
+// 1. IMPORT YOUR LOCAL LOGOS FROM THE ASSETS IMAGES FOLDER
+import shaLogo from '../assets/images/sha.png'; // Make sure the extension names (.png, .jpg, etc.) match exactly
+import shaCivilLogo from '../assets/images/sha.png';
+import mwalimuLogo from '../assets/images/sha.png';
+import usalamaLogo from '../assets/images/sha.png';
+import cicLogo from '../assets/images/cic.png';
+import britamLogo from '../assets/images/britam.png';
+import starDiscoverLogo from '../assets/images/star.png';
+import madisonLogo from '../assets/images/madison.png';
+import kcbLogo from '../assets/images/kcb.png';
+import minetLogo from '../assets/images/minet.png';
+import oldmutualLogo from '../assets/images/oldmutual.png';
+import aarLogo from '../assets/images/aar.png';
+
 export default function Home() {
   const [formData, setFormData] = useState({
     name: '', 
@@ -25,19 +39,20 @@ export default function Home() {
     { title: "Compassion & Integrity", desc: "We treat every patient with empathy and uphold honesty and ethical practices." },
   ];
 
+  // 2. ASSIGN THE IMPORTED VARIABLE TO THE "img" VARIABLE OBJECT KEYS
   const insurances = [
-    { name: "SHA Insurance", img: "https://placehold.co/180x80/f8f7f4/0096D6?text=SHA+Insurance" },
-    { name: "SHA Civil Servants", img: "https://placehold.co/180x80/f8f7f4/008F7A?text=SHA+Civil+Servants" },
-    { name: "Mwalimu Cover", img: "https://placehold.co/180x80/f8f7f4/334155?text=Mwalimu+Cover" },
-    { name: "Usalama Cover", img: "https://placehold.co/180x80/f8f7f4/0096D6?text=Usalama+Cover" },
-    { name: "CIC Group", img: "https://placehold.co/180x80/f8f7f4/008F7A?text=CIC+Group" },
-    { name: "Britam", img: "https://placehold.co/180x80/f8f7f4/334155?text=Britam" },
-    { name: "Star Discover", img: "https://placehold.co/180x80/f8f7f4/0096D6?text=Star+Discover" },
-    { name: "Madison Insurance", img: "https://placehold.co/180x80/f8f7f4/008F7A?text=Madison" },
-    { name: "KCB Insurance", img: "https://placehold.co/180x80/f8f7f4/334155?text=KCB+Insurance" },
-    { name: "Minet Kenya", img: "https://placehold.co/180x80/f8f7f4/0096D6?text=Minet+Kenya" },
-    { name: "Kenya Alliance", img: "https://placehold.co/180x80/f8f7f4/008F7A?text=Kenya+Alliance" },
-    { name: "AAR Insurance", img: "https://placehold.co/180x80/f8f7f4/334155?text=AAR+Insurance" },
+    { name: "SHA Insurance", img: shaLogo },
+    { name: "SHA Civil Servants", img: shaCivilLogo },
+    { name: "Mwalimu Cover", img: mwalimuLogo },
+    { name: "Usalama Cover", img: usalamaLogo },
+    { name: "CIC Group", img: cicLogo },
+    { name: "Britam", img: britamLogo },
+    { name: "Star Discover", img: starDiscoverLogo },
+    { name: "Madison Insurance", img: madisonLogo },
+    { name: "KCB Insurance", img: kcbLogo },
+    { name: "Minet Kenya", img: minetLogo },
+    { name: "Old Mutual", img: oldmutualLogo },
+    { name: "AAR Insurance", img: aarLogo },
   ];
 
   const corporatePartners = [
@@ -191,9 +206,16 @@ export default function Home() {
         <div className="relative w-full flex items-center overflow-x-hidden mb-12">
           <div className="flex gap-6 animate-infinite-scroll min-w-full">
             {carouselItems.map((ins, index) => (
-              <div key={index} className="shrink-0 w-44 bg-white/5 border border-white/10 rounded-2xl p-4 text-center">
-                <img src={ins.img} alt={ins.name} className="h-10 w-auto mx-auto brightness-0 invert opacity-80" />
-                <p className="text-[10px] text-white/50 mt-2 font-medium uppercase tracking-wider truncate">{ins.name}</p>
+              <div key={index} className="shrink-0 w-44 bg-white/5 border border-white/10 rounded-2xl p-4 text-center flex flex-col justify-center items-center">
+                {/* 3. UPDATED LOGO IMAGE HANDLING */}
+                <img 
+                  src={ins.img} 
+                  alt={ins.name} 
+                  className="h-12 w-auto max-w-[85%] object-contain mx-auto transition-all" 
+                  // Note: If you want full-color logos, leave it like this. 
+                  // If you want them to be solid monochromatic white outlines inside the dark section, add back: "brightness-0 invert opacity-80"
+                />
+                <p className="text-[10px] text-white/50 mt-3 font-medium uppercase tracking-wider truncate w-full">{ins.name}</p>
               </div>
             ))}
           </div>

@@ -18,6 +18,7 @@ export default function Careers() {
     coverLetter: '',
   });
   const [resume, setResume] = useState<File | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   // Sample medical and administrative openings common for a Level 4 facility
   const openPositions: JobOpening[] = [
@@ -68,14 +69,45 @@ export default function Careers() {
     }
   };
 
-  const handleApply = (e: FormEvent<HTMLFormElement>) => {
+  const handleApply = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // In production, this would send a FormData object to your backend or HR email endpoint
-    alert(`Thank you, ${formData.fullName}. Your application for the position of "${formData.position || 'General Application'}" has been submitted successfully.`);
-    
-    // Reset form
-    setFormData({ fullName: '', email: '', phone: '', position: '', coverLetter: '' });
-    setResume(null);
+    if (isSubmitting) return;
+
+    setIsSubmitting(true);
+
+    // Initialize binary stream map for multipart backend upload
+    const dataToSend = new FormData();
+    dataToSend.append('fullName', formData.fullName);
+    dataToSend.append('email', formData.email);
+    dataToSend.append('phone', formData.phone);
+    dataToSend.append('position', formData.position || 'General Application');
+    dataToSend.append('coverLetter', formData.coverLetter);
+    if (resume) {
+      dataToSend.append('resume', resume);
+    }
+
+    try {
+      const response = await fetch('http://localhost:5000/api/v1/careers/apply', {
+        method: 'POST',
+        body: dataToSend // Browser handles boundaries automatically
+      });
+
+      const data = await response.json();
+
+      if (response.ok && data.success) {
+        alert(`Success: ${data.message || 'Your application profile was processed flawlessly!'}`);
+        // Reset state cleanly
+        setFormData({ fullName: '', email: '', phone: '', position: '', coverLetter: '' });
+        setResume(null);
+      } else {
+        alert(`Application Error: ${data.message || 'The server rejected this transmission.'}`);
+      }
+    } catch (err) {
+      console.error('Network Error:', err);
+      alert('Could not connect to the PEJMED processing server. Please ensure your backend architecture is running.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -211,9 +243,10 @@ export default function Careers() {
                 <label className="block text-xs font-bold tracking-wider mb-2 text-hospital-darkGrey uppercase">Full Name</label>
                 <input 
                   type="text" required 
+                  disabled={isSubmitting}
                   value={formData.fullName} 
                   onChange={(e) => setFormData({...formData, fullName: e.target.value})}
-                  className="w-full bg-neutral-50 border border-neutral-200 focus:bg-white focus:border-hospital-teal focus:ring-2 focus:ring-hospital-teal/20 rounded-2xl px-5 py-3.5 text-neutral-800 placeholder:text-neutral-400 outline-none transition-all" 
+                  className="w-full bg-neutral-50 border border-neutral-200 focus:bg-white focus:border-hospital-teal focus:ring-2 focus:ring-hospital-teal/20 rounded-2xl px-5 py-3.5 text-neutral-800 placeholder:text-neutral-400 outline-none transition-all disabled:opacity-50" 
                   placeholder="Jane Mwangi" 
                 />
               </div>
@@ -221,9 +254,10 @@ export default function Careers() {
                 <label className="block text-xs font-bold tracking-wider mb-2 text-hospital-darkGrey uppercase">Email Address</label>
                 <input 
                   type="email" required 
+                  disabled={isSubmitting}
                   value={formData.email} 
                   onChange={(e) => setFormData({...formData, email: e.target.value})}
-                  className="w-full bg-neutral-50 border border-neutral-200 focus:bg-white focus:border-hospital-teal focus:ring-2 focus:ring-hospital-teal/20 rounded-2xl px-5 py-3.5 text-neutral-800 placeholder:text-neutral-400 outline-none transition-all" 
+                  className="w-full bg-neutral-50 border border-neutral-200 focus:bg-white focus:border-hospital-teal focus:ring-2 focus:ring-hospital-teal/20 rounded-2xl px-5 py-3.5 text-neutral-800 placeholder:text-neutral-400 outline-none transition-all disabled:opacity-50" 
                   placeholder="jane.mwangi@example.com" 
                 />
               </div>
@@ -234,9 +268,10 @@ export default function Careers() {
                 <label className="block text-xs font-bold tracking-wider mb-2 text-hospital-darkGrey uppercase">Phone Number</label>
                 <input 
                   type="tel" required 
+                  disabled={isSubmitting}
                   value={formData.phone} 
                   onChange={(e) => setFormData({...formData, phone: e.target.value})}
-                  className="w-full bg-neutral-50 border border-neutral-200 focus:bg-white focus:border-hospital-teal focus:ring-2 focus:ring-hospital-teal/20 rounded-2xl px-5 py-3.5 text-neutral-800 placeholder:text-neutral-400 outline-none transition-all" 
+                  className="w-full bg-neutral-50 border border-neutral-200 focus:bg-white focus:border-hospital-teal focus:ring-2 focus:ring-hospital-teal/20 rounded-2xl px-5 py-3.5 text-neutral-800 placeholder:text-neutral-400 outline-none transition-all disabled:opacity-50" 
                   placeholder="0712 345 678" 
                 />
               </div>
@@ -244,9 +279,10 @@ export default function Careers() {
                 <label className="block text-xs font-bold tracking-wider mb-2 text-hospital-darkGrey uppercase">Target Position</label>
                 <input 
                   type="text" 
+                  disabled={isSubmitting}
                   value={formData.position} 
                   onChange={(e) => setFormData({...formData, position: e.target.value})}
-                  className="w-full bg-neutral-50 border border-neutral-200 focus:bg-white focus:border-hospital-teal focus:ring-2 focus:ring-hospital-teal/20 rounded-2xl px-5 py-3.5 text-neutral-800 outline-none transition-all" 
+                  className="w-full bg-neutral-50 border border-neutral-200 focus:bg-white focus:border-hospital-teal focus:ring-2 focus:ring-hospital-teal/20 rounded-2xl px-5 py-3.5 text-neutral-800 outline-none transition-all disabled:opacity-50" 
                   placeholder="e.g., Critical Care Nurse (or General Application)" 
                 />
               </div>
@@ -256,9 +292,10 @@ export default function Careers() {
               <label className="block text-xs font-bold tracking-wider mb-2 text-hospital-darkGrey uppercase">Brief Professional Summary / Cover Notes</label>
               <textarea 
                 rows={5} required 
+                disabled={isSubmitting}
                 value={formData.coverLetter} 
                 onChange={(e) => setFormData({...formData, coverLetter: e.target.value})}
-                className="w-full bg-neutral-50 border border-neutral-200 focus:bg-white focus:border-hospital-teal focus:ring-2 focus:ring-hospital-teal/20 rounded-3xl px-5 py-3.5 text-neutral-800 placeholder:text-neutral-400 resize-none outline-none transition-all" 
+                className="w-full bg-neutral-50 border border-neutral-200 focus:bg-white focus:border-hospital-teal focus:ring-2 focus:ring-hospital-teal/20 rounded-3xl px-5 py-3.5 text-neutral-800 placeholder:text-neutral-400 resize-none outline-none transition-all disabled:opacity-50" 
                 placeholder="Briefly state why you'd love to join the PEJMED Ultracare medical panel..." 
               />
             </div>
@@ -274,14 +311,19 @@ export default function Careers() {
                   type="file" 
                   accept=".pdf,.doc,.docx" 
                   required={!resume}
+                  disabled={isSubmitting}
                   onChange={handleFileChange} 
                   className="hidden" 
                 />
               </label>
             </div>
 
-            <button type="submit" className="w-full mt-8 bg-hospital-teal hover:bg-hospital-teal/95 text-white py-4 rounded-2xl text-base font-bold uppercase tracking-wider transition-transform shadow-md shadow-hospital-teal/10">
-              Submit Job Application
+            <button 
+              type="submit" 
+              disabled={isSubmitting}
+              className="w-full mt-8 bg-hospital-teal hover:bg-hospital-teal/95 text-white py-4 rounded-2xl text-base font-bold uppercase tracking-wider transition-all shadow-md shadow-hospital-teal/10 disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              {isSubmitting ? "Uploading Documents..." : "Submit Job Application"}
             </button>
           </form>
         </div>

@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
+import Chatbot from './components/Chatbot';
 import Home from './pages/Home';
 import Services from './pages/Services';
 import Insurance from './pages/Insurance';
@@ -29,6 +30,7 @@ export default function App() {
         </main>
         
         {/* Global Footer Layout */}
+        <Chatbot />
         <Footer />
       </div>
     </Router>
